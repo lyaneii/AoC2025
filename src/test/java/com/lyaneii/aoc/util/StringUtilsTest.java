@@ -1,4 +1,4 @@
-package com.lyaneii.aoc;
+package com.lyaneii.aoc.util;
 
 import com.lyaneii.aoc.common.util.StringUtils;
 import org.junit.jupiter.api.Nested;
