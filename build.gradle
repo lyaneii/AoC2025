@@ -16,6 +16,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.github.cdimascio:dotenv-java:3.2.0'
+    implementation 'org.jsoup:jsoup:1.15.3'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
 }
 
