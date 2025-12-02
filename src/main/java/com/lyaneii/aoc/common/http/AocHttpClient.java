@@ -1,12 +1,12 @@
 package com.lyaneii.aoc.common.http;
 
+import com.lyaneii.aoc.common.Day;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -51,28 +51,24 @@ public class AocHttpClient {
     }
 
     private String inputUriString(int day) {
-        return exampleInputUriString(day) + "/input";
+        return exampleInputUriString(day) + "/day1/input";
     }
 
     private String exampleInputUriString(int day) {
         return BASE_URL + day;
     }
 
-    private File exampleFileName(int day) {
-        return new File(RESOURCE_PATH + EXAMPLE_PREFIX + day);
-    }
-
     private File inputFileName(int day) {
         return new File(RESOURCE_PATH + DAY_PREFIX + day);
     }
 
-    public void createInput(int day) {
-        File input = inputFileName(day);
+    public void createInput(Day day) {
+        File input = new File(day.getInputResourcePath());
         if (input.exists()) {
             return;
         }
 
-        URI uri = URI.create(inputUriString(day));
+        URI uri = URI.create(inputUriString(day.getDayNumber()));
         HttpRequest request = requestBuilder
                 .uri(uri)
                 .build();
@@ -88,13 +84,13 @@ public class AocHttpClient {
         }
     }
 
-    public void createExampleInput(int day) {
-        File input = exampleFileName(day);
+    public void createExampleInput(Day day) {
+        File input = new File(day.getExampleResourcePath());
         if (input.exists()) {
             return;
         }
 
-        URI uri = URI.create(exampleInputUriString(day));
+        URI uri = URI.create(exampleInputUriString(day.getDayNumber()));
         HttpRequest request = requestBuilder
                 .uri(uri)
                 .build();

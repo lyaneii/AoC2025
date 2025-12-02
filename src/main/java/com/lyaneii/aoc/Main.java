@@ -16,8 +16,8 @@ public class Main {
         for (int dayNumber = 1; dayNumber <= CURRENT_DAY; ++dayNumber) {
             Day day = (Day) Class.forName("com.lyaneii.aoc.days.Day" + dayNumber).getDeclaredConstructor().newInstance();
 
-            client.createExampleInput(dayNumber);
-            client.createInput(dayNumber);
+            client.createExampleInput(day);
+            client.createInput(day);
 
             day.printTitle();
 

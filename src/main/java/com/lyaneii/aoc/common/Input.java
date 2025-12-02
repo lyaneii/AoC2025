@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class Input {
-    private static final String RESOURCE_PATH = "src/main/resources/";
     private static final String DEFAULT_DELIMITER = "\n";
 
     String path;
@@ -20,12 +19,8 @@ public class Input {
         }
     }
 
-    private static File getInputFile(String path) {
-        return new File(RESOURCE_PATH + path);
-    }
-
     private static String getInputAsString(String path) throws IOException {
-        File file = getInputFile(path);
+        File file = new File(path);
         return Files.readString(file.toPath());
     }
 
