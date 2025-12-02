@@ -16,4 +16,4 @@ I see Advent of Code as a great way to dive into a new language, [last year I tr
 The custom http client I made follows the automation guidelines on the [/r/adventofcode](https://www.reddit.com/r/adventofcode) community wiki, link to the FAQ is -> [here](https://www.reddit.com/r/adventofcode/wiki/faqs/automation).
 - The example input and real input are downloaded once, then stored locally in the resources folder.
 - The inputs won't be requested again if they already exist in the resource folder.
-- Even though the calls are manual, requests are throttled to once every 10 seconds as a small safety net.
+- Requests are limited to once every 15 minutes, reminder -> [guidelines](https://www.reddit.com/r/adventofcode/comments/1pa472d/reminder_please_throttle_your_aoc_traffic/). Although they are manual calls it is still limited by storing the time of the last request locally and comparing it when we are trying to request through the http client.
