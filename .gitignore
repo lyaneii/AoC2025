@@ -42,5 +42,7 @@ bin/
 .DS_Store
 
 ### Custom ###
-resources/
+**/src/main/resources/*
+**/src/test/resources/*
+!DayTemplate
 .env
