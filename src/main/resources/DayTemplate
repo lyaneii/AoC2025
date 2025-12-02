@@ -1,0 +1,22 @@
+package com.lyaneii.aoc.days;
+
+import com.lyaneii.aoc.common.Day;
+
+public class Day# extends Day {
+
+    public Day#() {
+        super(#, "Day #");
+    }
+
+    @Override
+    public Object partOne() {
+        String[] aocInput = input.asStringArray();
+        return 0;
+    }
+
+    @Override
+    public Object partTwo() {
+        String[] aocInput = input.asStringArray();
+        return 0;
+    }
+}
