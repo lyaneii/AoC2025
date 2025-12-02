@@ -1,12 +1,12 @@
 package com.lyaneii.aoc.common.http;
 
-import com.google.common.util.concurrent.RateLimiter;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -30,8 +30,8 @@ public class AocHttpClient {
     private final HttpClient client;
     private final HttpRequest.Builder requestBuilder;
 
-    private final RateLimiter rateLimiter;
-    private static final double RATE_LIMIT = 10.0;
+    private final HttpThrottler throttler;
+    private static final int RATE_LIMIT = 900;
 
     public AocHttpClient() {
         Dotenv env = Dotenv.load();
@@ -46,7 +46,8 @@ public class AocHttpClient {
                 .header(USER_AGENT_HEADER_KEY, userAgentHeaderValue)
                 .timeout(Duration.ofSeconds(10))
                 .GET();
-        rateLimiter = RateLimiter.create(RATE_LIMIT);
+        throttler = HttpThrottler.create()
+                .setRateLimit(RATE_LIMIT);
     }
 
     private String inputUriString(int day) {
@@ -77,7 +78,7 @@ public class AocHttpClient {
                 .build();
 
         try {
-            rateLimiter.acquire();
+            throttler.tryPermissionToSendRequest();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 Files.write(Paths.get(input.toString()), response.body().stripTrailing().getBytes());
@@ -99,7 +100,7 @@ public class AocHttpClient {
                 .build();
 
         try {
-            rateLimiter.acquire();
+            throttler.tryPermissionToSendRequest();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 Document document = Jsoup.parse(response.body());
