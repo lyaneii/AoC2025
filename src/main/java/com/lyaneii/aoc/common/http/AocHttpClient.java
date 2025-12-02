@@ -80,7 +80,7 @@ public class AocHttpClient {
             rateLimiter.acquire();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                Files.write(Paths.get(input.toString()), response.body().getBytes());
+                Files.write(Paths.get(input.toString()), response.body().stripTrailing().getBytes());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

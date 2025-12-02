@@ -38,7 +38,7 @@ public class Day2 extends Day {
     @Override
     public Object partOne() {
         long result = 0;
-        String[] productIdRanges = input.asStringArray("\n?,\n?");
+        String[] productIdRanges = input.asStringArray(",\n?");
 
         for (String productIdRange : productIdRanges) {
             String[] separatedIds = productIdRange.split("-");
@@ -61,7 +61,7 @@ public class Day2 extends Day {
     @Override
     public Object partTwo() {
         long result = 0;
-        String[] productIdRanges = input.asStringArray("\n?,\n?");
+        String[] productIdRanges = input.asStringArray(",\n?");
 
         for (String productIdRange : productIdRanges) {
             String[] separatedIds = productIdRange.split("-");
