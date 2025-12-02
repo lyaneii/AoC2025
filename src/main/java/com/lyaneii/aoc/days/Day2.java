@@ -1,7 +1,6 @@
 package com.lyaneii.aoc.days;
 
 import com.lyaneii.aoc.common.Day;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 
