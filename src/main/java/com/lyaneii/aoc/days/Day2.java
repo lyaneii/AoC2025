@@ -24,11 +24,11 @@ public class Day2 extends Day {
         currentInterval += interval;
 
         for (int times = 1; times < amountOfRepeats; ++times) {
-            long currentNumberSequence = Long.parseLong(string.substring(currentInterval, currentInterval + interval));
-            if (!digitSequences.contains(currentNumberSequence)) {
+            long currentDigitSequence = Long.parseLong(string.substring(currentInterval, currentInterval + interval));
+            if (!digitSequences.contains(currentDigitSequence)) {
                 return false;
             }
-            digitSequences.add(currentNumberSequence);
+            digitSequences.add(currentDigitSequence);
             currentInterval += interval;
         }
         return true;

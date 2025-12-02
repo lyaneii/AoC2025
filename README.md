@@ -1,9 +1,9 @@
 # 🎄 Advent of Code 2025 🎄 Java Solutions
 ### Solutions
-|🎄|🎄|🎄|🎄|🎄|🎄|🎄|
-|-|-|-|-|-|-|-|
-| [#1](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day1.java) | [#2]() | [#3]()   | [#4]()   | [#5]()   | [#6]() | [#7]() |
-| [#8]() | [#9]() | [#10]() | [#11]() | [#12]() | x |x
+|🎄| 🎄                                                                                                |🎄|🎄|🎄|🎄|🎄|
+|-|---------------------------------------------------------------------------------------------------|-|-|-|-|-|
+| [#1](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day1.java) | [#2](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day2.java) | [#3]()   | [#4]()   | [#5]()   | [#6]() | [#7]() |
+| [#8]() | [#9]()                                                                                            | [#10]() | [#11]() | [#12]() | x |x
 
 ### Introduction
 I see Advent of Code as a great way to dive into a new language, [last year I tried it in C#](https://github.com/lyaneii/AoC2024) and it actually gave me a headstart on the job I was applying for.
