@@ -1,5 +1,6 @@
 package com.lyaneii.aoc.common.http;
 
+import com.google.common.util.concurrent.RateLimiter;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +13,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 
 public class AocHttpClient {
     private static final String EXAMPLE_INPUT_HTML_TAG = "pre";
@@ -28,6 +30,9 @@ public class AocHttpClient {
     private final HttpClient client;
     private final HttpRequest.Builder requestBuilder;
 
+    private final RateLimiter rateLimiter;
+    private static final double RATE_LIMIT = 10.0;
+
     public AocHttpClient() {
         Dotenv env = Dotenv.load();
         sessionCookie = env.get("AOC_SESSION_COOKIE");
@@ -39,7 +44,9 @@ public class AocHttpClient {
         requestBuilder = HttpRequest.newBuilder()
                 .header(COOKIE_HEADER_KEY, "session=" + sessionCookie)
                 .header(USER_AGENT_HEADER_KEY, userAgentHeaderValue)
+                .timeout(Duration.ofSeconds(10))
                 .GET();
+        rateLimiter = RateLimiter.create(RATE_LIMIT);
     }
 
     private String inputUriString(int day) {
@@ -70,6 +77,7 @@ public class AocHttpClient {
                 .build();
 
         try {
+            rateLimiter.acquire();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 Files.write(Paths.get(input.toString()), response.body().getBytes());
@@ -91,6 +99,7 @@ public class AocHttpClient {
                 .build();
 
         try {
+            rateLimiter.acquire();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 Document document = Jsoup.parse(response.body());
