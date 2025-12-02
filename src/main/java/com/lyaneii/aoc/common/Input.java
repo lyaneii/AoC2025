@@ -33,8 +33,8 @@ public class Input {
         return input;
     }
 
-    public String[] asStringArray(String delimiter) {
-        return input.split(delimiter);
+    public String[] asStringArray(String regex) {
+        return input.split(regex);
     }
 
     public String[] asStringArray() {

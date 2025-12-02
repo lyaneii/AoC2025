@@ -17,7 +17,7 @@ public abstract class Day {
     abstract public Object partTwo();
 
     public void printTitle() {
-        System.out.println(title);
+        System.out.println("\n" + title);
     }
 
     public void parseInput(String path) {

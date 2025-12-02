@@ -6,7 +6,7 @@ import com.lyaneii.aoc.common.http.AocHttpClient;
 import java.lang.reflect.InvocationTargetException;
 
 public class Main {
-    private static final int CURRENT_DAY = 1;
+    private static final int CURRENT_DAY = 2;
 
     public static void main(String[] args) throws ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
