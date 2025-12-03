@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.*;
 
 public class HttpThrottler {
     private static final String DEFAULT_CACHE_LOCATION = "src/main/resources/lastRequest";
     private static final long DEFAULT_RATE_LIMIT_SECONDS = 60;
+    private static final String ENTRY_SEPARATOR = "\\|";
+
+    private Map<String, LocalDateTime> lastRequestMap;
 
     private File lastRequestCache;
     private Duration rateLimit;
@@ -17,9 +21,13 @@ public class HttpThrottler {
     }
 
     public static HttpThrottler create() {
-        return new HttpThrottler()
-                .setRateLimit(DEFAULT_RATE_LIMIT_SECONDS)
-                .setLastRequestCacheLocation(DEFAULT_CACHE_LOCATION);
+        try {
+            return new HttpThrottler()
+                    .setRateLimit(DEFAULT_RATE_LIMIT_SECONDS)
+                    .setLastRequestCacheLocation(DEFAULT_CACHE_LOCATION);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void invalidateCache() {
@@ -30,8 +38,14 @@ public class HttpThrottler {
         }
     }
 
-    public HttpThrottler setLastRequestCacheLocation(String path) {
+    private boolean rateLimitIsExceeded(Duration timeSinceLastRequest) {
+        return timeSinceLastRequest.compareTo(rateLimit) < 0;
+    }
+
+    public HttpThrottler setLastRequestCacheLocation(String path) throws IOException {
         lastRequestCache = new File(path);
+        lastRequestMap = new HashMap<>();
+        readLastRequestCache();
         return this;
     }
 
@@ -50,28 +64,53 @@ public class HttpThrottler {
         return this;
     }
 
-    private boolean rateLimitIsExceeded(Duration timeSinceLastRequest) {
-        return timeSinceLastRequest.compareTo(rateLimit) < 0;
+    LocalDateTime getLastRequest(String uri) {
+        return lastRequestMap.get(uri);
     }
 
-    public boolean tryPermissionToSendRequest() {
+    private void readLastRequestCache() throws IOException {
+        if (!lastRequestCache.exists()) {
+            return;
+        }
+        String cache = Files.readString(lastRequestCache.toPath());
+        String[] entries = cache.split("\n");
+        for (String entry : entries) {
+            String[] keyValuePair = entry.trim().split(ENTRY_SEPARATOR);
+            lastRequestMap.put(keyValuePair[0], LocalDateTime.parse(keyValuePair[1]));
+        }
+    }
+
+    public void writeLastRequestCache(String uri, LocalDateTime lastRequestTime) throws IOException {
+        lastRequestMap.put(uri, lastRequestTime);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry setEntry : lastRequestMap.entrySet()) {
+            stringBuilder
+                    .append(setEntry.getKey())
+                    .append("|")
+                    .append(setEntry.getValue())
+                    .append("\n");
+        }
+        Files.write(lastRequestCache.toPath(), stringBuilder.toString().getBytes());
+    }
+
+    public boolean tryPermissionToSendRequest(String uri) {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
 
             if (!lastRequestCache.exists()) {
-                Files.write(lastRequestCache.toPath(), localDateTime.toString().getBytes());
+                writeLastRequestCache(uri, localDateTime);
                 return true;
             }
 
-            String time = Files.readString(lastRequestCache.toPath());
-            LocalDateTime lastRequestTime = LocalDateTime.parse(time);
-
-            Duration timeSinceLastRequest = Duration.between(lastRequestTime, localDateTime);
-            if (rateLimitIsExceeded(timeSinceLastRequest)) {
-                return false;
+            LocalDateTime lastRequestTime = getLastRequest(uri);
+            if (lastRequestTime != null) {
+                Duration timeSinceLastRequest = Duration.between(lastRequestTime, localDateTime);
+                if (rateLimitIsExceeded(timeSinceLastRequest)) {
+                    return false;
+                }
             }
 
-            Files.write(lastRequestCache.toPath(), localDateTime.toString().getBytes());
+            writeLastRequestCache(uri, localDateTime);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
