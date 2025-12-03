@@ -7,6 +7,6 @@ public class Main {
         AoCRunner runner = new AoCRunner();
 
         DayTemplateGenerator.generate(runner.getCurrentAvailableDay());
-        runner.runCurrentDay(true);
+        runner.runCurrentDay(AoCRunner.RUN_WITH_INPUT);
     }
 }
