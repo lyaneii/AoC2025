@@ -16,16 +16,11 @@ import java.time.Duration;
 
 public class AocHttpClient {
     private static final String EXAMPLE_INPUT_HTML_TAG = "pre";
-    private static final String DAY_PREFIX = "day";
-    private static final String EXAMPLE_PREFIX = "example";
-    private static final String RESOURCE_PATH = "src/main/resources/";
     private static final String BASE_URL = "https://adventofcode.com/2025/day/";
 
     private static final String USER_AGENT_HEADER_KEY = "User-Agent";
     private static final String COOKIE_HEADER_KEY = "Cookie";
 
-    private final String sessionCookie;
-    private final String userAgentHeaderValue;
     private final HttpClient client;
     private final HttpRequest.Builder requestBuilder;
 
@@ -34,8 +29,8 @@ public class AocHttpClient {
 
     public AocHttpClient() {
         Dotenv env = Dotenv.load();
-        sessionCookie = env.get("AOC_SESSION_COOKIE");
-        userAgentHeaderValue = env.get("AOC_USER_AGENT_VALUE");
+        String sessionCookie = env.get("AOC_SESSION_COOKIE");
+        String userAgentHeaderValue = env.get("AOC_USER_AGENT_VALUE");
 
         client = HttpClient.newBuilder()
                 .proxy(ProxySelector.getDefault())
@@ -57,9 +52,6 @@ public class AocHttpClient {
         return BASE_URL + day;
     }
 
-    private File inputFileName(int day) {
-        return new File(RESOURCE_PATH + DAY_PREFIX + day);
-    }
 
     public void createInput(Day day) {
         File input = new File(day.getInputResourcePath());

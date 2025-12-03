@@ -83,7 +83,7 @@ public class HttpThrottler {
     public void writeLastRequestCache(String uri, LocalDateTime lastRequestTime) throws IOException {
         lastRequestMap.put(uri, lastRequestTime);
         StringBuilder stringBuilder = new StringBuilder();
-        for (Map.Entry setEntry : lastRequestMap.entrySet()) {
+        for (var setEntry : lastRequestMap.entrySet()) {
             stringBuilder
                     .append(setEntry.getKey())
                     .append("|")
