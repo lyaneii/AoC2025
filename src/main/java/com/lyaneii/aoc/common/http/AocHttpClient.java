@@ -12,7 +12,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.Duration;
 
 public class AocHttpClient {
@@ -51,7 +50,7 @@ public class AocHttpClient {
     }
 
     private String inputUriString(int day) {
-        return exampleInputUriString(day) + "/day1/input";
+        return exampleInputUriString(day) + "/input";
     }
 
     private String exampleInputUriString(int day) {
@@ -74,10 +73,13 @@ public class AocHttpClient {
                 .build();
 
         try {
-            throttler.tryPermissionToSendRequest();
+            if (!throttler.tryPermissionToSendRequest(uri.toString())) {
+                return;
+            }
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                Files.write(Paths.get(input.toString()), response.body().stripTrailing().getBytes());
+                Files.createDirectories(input.toPath().getParent());
+                Files.write(input.toPath(), response.body().stripTrailing().getBytes());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -96,13 +98,16 @@ public class AocHttpClient {
                 .build();
 
         try {
-            throttler.tryPermissionToSendRequest();
+            if (!throttler.tryPermissionToSendRequest(uri.toString())) {
+                return;
+            }
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 Document document = Jsoup.parse(response.body());
                 Element exampleInput = document.select(EXAMPLE_INPUT_HTML_TAG).first();
                 if (exampleInput != null) {
-                    Files.write(Paths.get(input.toString()), exampleInput.text().getBytes());
+                    Files.createDirectories(input.toPath().getParent());
+                    Files.write(input.toPath(), exampleInput.text().getBytes());
                 }
             }
         } catch (Exception e) {
