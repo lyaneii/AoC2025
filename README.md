@@ -1,13 +1,13 @@
 # 🎄 Advent of Code 2025 🎄 Java Solutions
 ### Solutions
-|🎄| 🎄                                                                                                |🎄|🎄|🎄|🎄|🎄|
-|-|---------------------------------------------------------------------------------------------------|-|-|-|-|-|
-| [#1](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day1.java) | [#2](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day2.java) | [#3]()   | [#4]()   | [#5]()   | [#6]() | [#7]() |
-| [#8]() | [#9]()                                                                                            | [#10]() | [#11]() | [#12]() | x |x
+|🎄| 🎄                                                                                                | 🎄                                                                                                |🎄|🎄|🎄|🎄|
+|-|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-|-|-|-|
+| [#1](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day1.java) | [#2](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day2.java) | [#3](https://github.com/lyaneii/AoC2025/blob/master/src/main/java/com/lyaneii/aoc/days/Day3.java) | [#4]()   | [#5]()   | [#6]() | [#7]() |
+| [#8]() | [#9]()                                                                                            | [#10]()                                                                                           | [#11]() | [#12]() | x |x
 
 ### Introduction
 I see Advent of Code as a great way to dive into a new language, [last year I tried it in C#](https://github.com/lyaneii/AoC2024) and it actually gave me a headstart on the job I was applying for.
- And now I am trying it in Java this year. One nice thing I found about this year's AoC is that the number of puzzles has been cut in half, so I am curious if the difficulty spikes much harder than before.
+ Now I am trying it in Java this year, but admittedly I am a little lazy on the exception handling :'). One nice thing I found about this year's AoC is that the number of puzzles has been cut in half, so I am curious if the difficulty spikes much harder than before.
 
 *Sidenote: learning java is also a way for me to possibly get into minecraft modding :D* 
 
