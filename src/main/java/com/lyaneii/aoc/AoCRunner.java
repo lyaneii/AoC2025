@@ -27,9 +27,9 @@ public class AoCRunner {
         return day;
     }
 
-    public void runCurrentDay() {
+    public void runCurrentDay(boolean exampleOnly) {
         try {
-            runForSpecifiedDay(currentDay);
+            runForSpecifiedDay(currentDay, exampleOnly);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -38,14 +38,14 @@ public class AoCRunner {
     public void runAllDays() {
         for (int dayNumber = 1; dayNumber <= currentDay; ++dayNumber) {
             try {
-                runForSpecifiedDay(dayNumber);
+                runForSpecifiedDay(dayNumber, false);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public void runForSpecifiedDay(int dayNumber)
+    public void runForSpecifiedDay(int dayNumber, boolean exampleOnly)
             throws ClassNotFoundException, NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException {
         if (dayNumber > currentDay) {
@@ -55,17 +55,17 @@ public class AoCRunner {
         Day day = (Day) Class.forName(DAY_CLASS_PREFIX + dayNumber).getDeclaredConstructor().newInstance();
 
         httpClient.createExampleInput(day);
-        httpClient.createInput(day);
 
         day.printTitle();
 
-        day.parseExampleInput();
-        System.out.println("Example: ");
-        System.out.println("Part One: " + day.partOne());
-        System.out.println("Part Two: " + day.partTwo());
-
-        day.parseInput();
-        System.out.println("To Submit: ");
+        if (exampleOnly) {
+            day.parseExampleInput();
+            System.out.println("Example: ");
+        } else {
+            httpClient.createInput(day);
+            day.parseInput();
+            System.out.println("To Submit: ");
+        }
         System.out.println("Part One: " + day.partOne());
         System.out.println("Part Two: " + day.partTwo());
     }
