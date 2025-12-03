@@ -10,7 +10,7 @@ public class Day2 extends Day {
         super(2, "Day 2: Gift Shop");
     }
 
-    public boolean hasRepeatingDigitSequence(String string, int amountOfRepeats) {
+    private static boolean hasRepeatingDigitSequence(String string, int amountOfRepeats) {
         if (string.length() % amountOfRepeats != 0) {
             return false;
         }
