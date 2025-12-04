@@ -46,4 +46,12 @@ public class StringUtils {
 
         return Float.parseFloat(matcher.group());
     }
+
+    public static char[][] toCharacterGrid(String[] stringArray) {
+        char[][] grid = new char[stringArray.length][stringArray[0].length()];
+        for (int i = 0; i < stringArray.length; ++i) {
+            grid[i] = stringArray[i].toCharArray();
+        }
+        return grid;
+    }
 }

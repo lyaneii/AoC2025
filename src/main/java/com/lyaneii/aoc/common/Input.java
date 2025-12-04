@@ -1,5 +1,7 @@
 package com.lyaneii.aoc.common;
 
+import com.lyaneii.aoc.common.util.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,5 +36,9 @@ public class Input {
 
     public String[] asStringArray() {
         return input.split(DEFAULT_DELIMITER);
+    }
+
+    public char[][] asCharacterGrid() {
+        return StringUtils.toCharacterGrid(asStringArray());
     }
 }
