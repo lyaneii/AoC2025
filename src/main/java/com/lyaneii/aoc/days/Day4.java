@@ -31,15 +31,15 @@ public class Day4 extends Day {
     }
 
     private static int countPaperRollsInAdjacentPositions(char[][] paperRollGrid, int startX, int startY) {
-        int rowStart = Math.max(0, startX - 1);
-        int rowEnd = Math.min(paperRollGrid[0].length - 1, startX + 1);
-        int currentColumn = Math.max(0, startY - 1);
-        int columnEnd = Math.min(paperRollGrid.length - 1, startY + 1);
+        int endX = Math.min(paperRollGrid[0].length - 1, startX + 1);
+        int endY = Math.min(paperRollGrid.length - 1, startY + 1);
+        startX = Math.max(0, startX - 1);
+        startY = Math.max(0, startY - 1);
         int paperRolls = 0;
 
-        for (;currentColumn <= columnEnd; ++currentColumn) {
-            for (int currentRow = rowStart; currentRow <= rowEnd; ++currentRow) {
-                if (paperRollGrid[currentColumn][currentRow] == PAPER_ROLL) {
+        for (int y = startY; y <= endY; ++y) {
+            for (int x = startX; x <= endX; ++x) {
+                if (paperRollGrid[y][x] == PAPER_ROLL) {
                     ++paperRolls;
                 }
             }
