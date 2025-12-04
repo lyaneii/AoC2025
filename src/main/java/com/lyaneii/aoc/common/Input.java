@@ -8,12 +8,9 @@ import java.nio.file.Files;
 
 public class Input {
     private static final String DEFAULT_DELIMITER = "\n";
-
-    String path;
-    String input;
+    private String input;
 
     public Input(String path) {
-        this.path = path;
         try {
             input = getInputAsString(path);
         } catch (IOException e) {
