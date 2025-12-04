@@ -76,6 +76,9 @@ public class AoCRunner {
             System.out.println("Part One: " + day.partOne());
             System.out.println("Part Two: " + day.partTwo());
         }
+    }
 
+    public void updateSolutionBrowser(int day) {
+        SolutionBrowserUpdater.update(day);
     }
 }
