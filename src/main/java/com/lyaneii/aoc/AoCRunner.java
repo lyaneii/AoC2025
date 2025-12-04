@@ -4,7 +4,6 @@ import com.lyaneii.aoc.common.Day;
 import com.lyaneii.aoc.common.http.AocHttpClient;
 import com.lyaneii.aoc.common.util.Bitmask;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 
 public class AoCRunner {
@@ -32,49 +31,43 @@ public class AoCRunner {
     }
 
     public void runCurrentDay(int flags) {
-        try {
-            runForSpecifiedDay(currentDay, flags);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        runForSpecifiedDay(currentDay, flags);
     }
 
     public void runAllDays() {
         for (int dayNumber = 1; dayNumber <= currentDay; ++dayNumber) {
-            try {
-                runForSpecifiedDay(dayNumber, RUN_WITH_INPUT);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            runForSpecifiedDay(dayNumber, RUN_WITH_INPUT);
         }
     }
 
-    public void runForSpecifiedDay(int dayNumber, int flags)
-            throws ClassNotFoundException, NoSuchMethodException,
-            InvocationTargetException, InstantiationException, IllegalAccessException {
-        if (dayNumber > currentDay) {
-            return;
-        }
+    public void runForSpecifiedDay(int dayNumber, int flags) {
+        try {
+            if (dayNumber > currentDay) {
+                return;
+            }
 
-        Day day = (Day) Class.forName(DAY_CLASS_PREFIX + dayNumber).getDeclaredConstructor().newInstance();
+            Day day = (Day) Class.forName(DAY_CLASS_PREFIX + dayNumber).getDeclaredConstructor().newInstance();
 
-        httpClient.createExampleInput(day);
+            httpClient.createExampleInput(day);
 
-        day.printTitle();
+            day.printTitle();
 
-        if (Bitmask.flagIsSet(flags, RUN_WITH_EXAMPLE_INPUT)) {
-            day.parseExampleInput();
-            System.out.println("Example: ");
-            System.out.println("Part One: " + day.partOne());
-            System.out.println("Part Two: " + day.partTwo());
-        }
+            if (Bitmask.flagIsSet(flags, RUN_WITH_EXAMPLE_INPUT)) {
+                day.parseExampleInput();
+                System.out.println("Example: ");
+                System.out.println("Part One: " + day.partOne());
+                System.out.println("Part Two: " + day.partTwo());
+            }
 
-        if (Bitmask.flagIsSet(flags, RUN_WITH_INPUT)) {
-            httpClient.createInput(day);
-            day.parseInput();
-            System.out.println("To Submit: ");
-            System.out.println("Part One: " + day.partOne());
-            System.out.println("Part Two: " + day.partTwo());
+            if (Bitmask.flagIsSet(flags, RUN_WITH_INPUT)) {
+                httpClient.createInput(day);
+                day.parseInput();
+                System.out.println("To Submit: ");
+                System.out.println("Part One: " + day.partOne());
+                System.out.println("Part Two: " + day.partTwo());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
