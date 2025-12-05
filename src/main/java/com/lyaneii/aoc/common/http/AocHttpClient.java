@@ -30,6 +30,9 @@ public class AocHttpClient {
     public AocHttpClient() {
         Dotenv env = Dotenv.load();
         String sessionCookie = env.get("AOC_SESSION_COOKIE");
+        if (sessionCookie == null) {
+            throw new RuntimeException();
+        }
         String userAgentHeaderValue = env.get("AOC_USER_AGENT_VALUE");
 
         client = HttpClient.newBuilder()
