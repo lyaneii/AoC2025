@@ -1,5 +1,6 @@
 package com.lyaneii.aoc.common.util;
 
+import java.util.ArrayList;
 import java.util.regex.*;
 
 public class StringUtils {
@@ -53,5 +54,31 @@ public class StringUtils {
             grid[i] = stringArray[i].toCharArray();
         }
         return grid;
+    }
+
+    public static int[] toIntegerArray(String[] stringArray) {
+        int[] integerArray = new int[stringArray.length];
+        for (int i = 0; i < stringArray.length; ++i) {
+            integerArray[i] = Integer.parseInt(stringArray[i]);
+        }
+        return integerArray;
+    }
+
+    public static long[] toLongArray(String[] stringArray) {
+        long[] longArray = new long[stringArray.length];
+        for (int i = 0; i < stringArray.length; ++i) {
+            longArray[i] = Long.parseLong(stringArray[i]);
+        }
+        return longArray;
+    }
+
+    public static ArrayList<LongRange> toLongRangeArrayList(String[] stringArray, String rangeSeparator) {
+        ArrayList<LongRange> rangeArrayList = new ArrayList<>(stringArray.length);
+
+        for (String string : stringArray) {
+            String[] range = string.split(rangeSeparator);
+            rangeArrayList.add(new LongRange(Long.parseLong(range[0]), Long.parseLong(range[1])));
+        }
+        return rangeArrayList;
     }
 }
