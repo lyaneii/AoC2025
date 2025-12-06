@@ -56,6 +56,14 @@ public class StringUtils {
         return grid;
     }
 
+    public static String[][] toStringGrid(String[] stringArray) {
+        String[][] grid = new String[stringArray.length][];
+        for (int i = 0; i < stringArray.length; ++i) {
+            grid[i] = stringArray[i].trim().split(" +");
+        }
+        return grid;
+    }
+
     public static int[] toIntegerArray(String[] stringArray) {
         int[] integerArray = new int[stringArray.length];
         for (int i = 0; i < stringArray.length; ++i) {
@@ -72,13 +80,17 @@ public class StringUtils {
         return longArray;
     }
 
-    public static ArrayList<LongRange> toLongRangeArrayList(String[] stringArray, String rangeSeparator) {
-        ArrayList<LongRange> rangeArrayList = new ArrayList<>(stringArray.length);
+    public static ArrayList<Range<Long>> toRangeArrayList(String[] stringArray, String rangeSeparator) {
+        ArrayList<Range<Long>> rangeArrayList = new ArrayList<>(stringArray.length);
 
         for (String string : stringArray) {
             String[] range = string.split(rangeSeparator);
-            rangeArrayList.add(new LongRange(Long.parseLong(range[0]), Long.parseLong(range[1])));
+            rangeArrayList.add(new Range<>(Long.parseLong(range[0]), Long.parseLong(range[1])));
         }
         return rangeArrayList;
+    }
+
+    public static String stripTrailingLineBreaks(String string) {
+        return string.replaceFirst("[\r\n]+$", "");
     }
 }

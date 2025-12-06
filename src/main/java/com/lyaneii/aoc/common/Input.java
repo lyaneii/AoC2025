@@ -38,4 +38,8 @@ public class Input {
     public char[][] asCharacterGrid() {
         return StringUtils.toCharacterGrid(asStringArray());
     }
+
+    public String[][] asStringGrid() {
+        return StringUtils.toStringGrid(asStringArray());
+    }
 }
