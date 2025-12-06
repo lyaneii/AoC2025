@@ -2,7 +2,7 @@ package com.lyaneii.aoc.days;
 
 import com.lyaneii.aoc.common.Day;
 import com.lyaneii.aoc.common.Input;
-import com.lyaneii.aoc.common.util.LongRange;
+import com.lyaneii.aoc.common.util.Range;
 import com.lyaneii.aoc.common.util.StringUtils;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ public class Day5 extends Day {
     }
 
     private static class IngredientDatabase {
-        public ArrayList<LongRange> freshRanges;
+        public ArrayList<Range<Long>> freshRanges;
         public long[] ingredientIds;
 
         public boolean isInRange(long value) {
-            for (LongRange freshRange : freshRanges) {
+            for (Range<Long> freshRange : freshRanges) {
                 if (freshRange.isInRangeInclusive(value)) {
                     return true;
                 }
@@ -32,19 +32,19 @@ public class Day5 extends Day {
         String[] splitRangeAndIds = input.asStringArray("\n\n");
         IngredientDatabase database = new IngredientDatabase();
 
-        database.freshRanges = StringUtils.toLongRangeArrayList(splitRangeAndIds[0].split("\n"), "-");
+        database.freshRanges = StringUtils.toRangeArrayList(splitRangeAndIds[0].split("\n"), "-");
         database.freshRanges = mergeRanges(database.freshRanges);
         database.ingredientIds = StringUtils.toLongArray(splitRangeAndIds[1].split("\n"));
         return database;
     }
 
-    public ArrayList<LongRange> mergeRanges(ArrayList<LongRange> ranges) {
-        ranges.sort(Comparator.comparingLong((LongRange range) -> range.low));
-        ArrayList<LongRange> mergedRanges = new ArrayList<>();
+    public ArrayList<Range<Long>> mergeRanges(ArrayList<Range<Long>> ranges) {
+        ranges.sort(Comparator.comparingLong((Range<Long> range) -> range.low));
+        ArrayList<Range<Long>> mergedRanges = new ArrayList<>();
 
-        LongRange currentRange = ranges.getFirst();
+        Range<Long> currentRange = ranges.getFirst();
         for (int i = 1; i < ranges.size(); ++i) {
-            LongRange nextRange = ranges.get(i);
+            Range<Long> nextRange = ranges.get(i);
             if (currentRange.overlaps(nextRange)) {
                 currentRange = currentRange.merge(nextRange);
             } else {
@@ -72,7 +72,7 @@ public class Day5 extends Day {
     public Object partTwo() {
         IngredientDatabase database = parseInput(input);
         long result = 0;
-        for (LongRange freshRange : database.freshRanges) {
+        for (Range<Long> freshRange : database.freshRanges) {
             result += freshRange.high - freshRange.low + 1;
         }
         return result;
