@@ -23,4 +23,11 @@ public class Grid {
     public char at(int x, int y) {
         return grid[y][x];
     }
+
+    public char[] row(int index) {
+        return grid[index];
+    }
+    public char[] column(int index) {
+        return GridUtils.getColumn(grid, index);
+    }
 }
