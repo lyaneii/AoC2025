@@ -10,6 +10,7 @@ public class AoCRunner {
     private final int currentDay;
     private static final int AOC_LOCAL_START_HOUR = 6;
     private static final String DAY_CLASS_PREFIX = "com.lyaneii.aoc.days.Day";
+    private static final int AOC_MAX_DAYS = 12;
     private final AocHttpClient httpClient;
 
     public static final int RUN_WITH_EXAMPLE_INPUT = 1;
@@ -42,7 +43,7 @@ public class AoCRunner {
 
     public void runForSpecifiedDay(int dayNumber, int flags) {
         try {
-            if (dayNumber > currentDay) {
+            if (dayNumber > currentDay || dayNumber > AOC_MAX_DAYS) {
                 return;
             }
 
