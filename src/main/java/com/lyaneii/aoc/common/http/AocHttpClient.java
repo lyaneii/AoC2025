@@ -1,6 +1,7 @@
 package com.lyaneii.aoc.common.http;
 
 import com.lyaneii.aoc.common.Day;
+import com.lyaneii.aoc.common.util.StringUtils;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -74,7 +75,7 @@ public class AocHttpClient {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 Files.createDirectories(input.toPath().getParent());
-                Files.write(input.toPath(), response.body().stripTrailing().getBytes());
+                Files.write(input.toPath(), StringUtils.stripTrailingLineBreaks(response.body()).getBytes());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
