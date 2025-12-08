@@ -93,4 +93,22 @@ public class StringUtils {
     public static String stripTrailingLineBreaks(String string) {
         return string.replaceFirst("[\r\n]+$", "");
     }
+    
+    public static int countOccurrences(String[] stringArray, char ch) {
+        int occurrences = 0;
+        for (String string : stringArray) {
+            occurrences += countOccurrences(string, ch);
+        }
+        return occurrences;
+    }
+    
+    public static int countOccurrences(String string, char ch) {
+        int occurrences = 0;
+        for (int i = 0; i < string.length(); ++i) {
+            if (string.charAt(i) == ch) {
+                ++occurrences;
+            }
+        }
+        return occurrences;
+    }
 }
