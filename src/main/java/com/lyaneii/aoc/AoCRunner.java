@@ -13,8 +13,8 @@ public class AoCRunner {
     private static final int AOC_MAX_DAYS = 12;
     private final AocHttpClient httpClient;
 
-    public static final int RUN_WITH_EXAMPLE_INPUT = 1;
-    public static final int RUN_WITH_INPUT = 1 << 1;
+    public static final int EXAMPLE = 1;
+    public static final int INPUT = 1 << 1;
 
     public AoCRunner() {
         currentDay = getCurrentAvailableDay();
@@ -37,7 +37,7 @@ public class AoCRunner {
 
     public void runAllDays() {
         for (int dayNumber = 1; dayNumber <= currentDay; ++dayNumber) {
-            runForSpecifiedDay(dayNumber, RUN_WITH_INPUT);
+            runForSpecifiedDay(dayNumber, INPUT);
         }
     }
 
@@ -53,14 +53,14 @@ public class AoCRunner {
 
             day.printTitle();
 
-            if (Bitmask.flagIsSet(flags, RUN_WITH_EXAMPLE_INPUT)) {
+            if (Bitmask.flagIsSet(flags, EXAMPLE)) {
                 day.parseExampleInput();
                 System.out.println("Example: ");
                 System.out.println("Part One: " + day.partOne());
                 System.out.println("Part Two: " + day.partTwo());
             }
 
-            if (Bitmask.flagIsSet(flags, RUN_WITH_INPUT)) {
+            if (Bitmask.flagIsSet(flags, INPUT)) {
                 httpClient.createInput(day);
                 day.parseInput();
                 System.out.println("To Submit: ");
