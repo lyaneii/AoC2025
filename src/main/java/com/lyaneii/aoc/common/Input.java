@@ -1,5 +1,6 @@
 package com.lyaneii.aoc.common;
 
+import com.lyaneii.aoc.common.util.Grid;
 import com.lyaneii.aoc.common.util.StringUtils;
 
 import java.io.File;
@@ -37,6 +38,10 @@ public class Input {
 
     public char[][] asCharacterGrid() {
         return StringUtils.toCharacterGrid(asStringArray());
+    }
+    
+    public Grid asGrid() {
+        return new Grid(asCharacterGrid());
     }
 
     public String[][] asStringGrid() {
