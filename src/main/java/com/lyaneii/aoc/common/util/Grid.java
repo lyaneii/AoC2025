@@ -19,6 +19,10 @@ public class Grid {
         }
         return clone;
     }
+    
+    public void transposeGrid() {
+        grid = GridUtils.transposeGrid(grid);
+    }
 
     public char at(int x, int y) {
         return grid[y][x];
@@ -27,6 +31,7 @@ public class Grid {
     public char[] row(int index) {
         return grid[index];
     }
+    
     public char[] column(int index) {
         return GridUtils.getColumn(grid, index);
     }

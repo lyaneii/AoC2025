@@ -9,4 +9,20 @@ public class GridUtils {
         }
         return column;
     }
+
+    public static char[][] transposeGrid(char[][] grid) {
+        char[][] transposedGrid = new char[grid[0].length][grid.length];
+        for (int x = 0; x < grid[0].length; ++x) {
+            transposedGrid[x] = getColumn(grid, x);
+        }
+        return transposedGrid;
+    }
+    
+    public static String[] toStringArray(char[][] grid) {
+        String[] stringArray = new String[grid.length];
+        for (int i = 0; i < grid.length; ++i) {
+            stringArray[i] = new String(grid[i]);
+        }
+        return stringArray;
+    }
 }
