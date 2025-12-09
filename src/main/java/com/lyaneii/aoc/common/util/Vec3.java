@@ -12,7 +12,25 @@ public class Vec3 {
         this.y = y;
         this.z = z;
     }
-    
+
+    public void add(Vec3 other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
+    }
+
+    public void subtract(Vec3 other) {
+        x -= other.x;
+        y -= other.y;
+        z -= other.z;
+    }
+
+    public void scale(int scalar) {
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+    }
+
     public static Vec3 add(Vec3 lhs, Vec3 rhs) {
         return new Vec3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
     }
